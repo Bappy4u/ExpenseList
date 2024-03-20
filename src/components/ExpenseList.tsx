@@ -26,12 +26,15 @@ const ExpenseList = ({expenseList}: props) => {
                 </thead>
                 <tbody>
 
-                <tr>
-                    <td>Milk</td>
-                    <td>$5.00</td>
-                    <td>Groceries</td>
-                    <td><button className="btn btn-outline-danger">Delete</button></td>
-                </tr>
+                {expenseList.map( (item, index) => (
+                    <tr>
+                        <td>{item.desc}</td>
+                        <td>{item.price}</td>
+                        <td>{item.category}</td>
+                        <td><button className="btn btn-outline-danger">Delete</button></td>
+                    </tr>
+                ))}
+
 
                 </tbody>
             </table>
