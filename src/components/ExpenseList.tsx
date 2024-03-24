@@ -1,3 +1,5 @@
+import {useState} from "react";
+
 interface props {
     expenseList: string[];
     onDelete: (index: number) => void;
@@ -5,15 +7,19 @@ interface props {
 
 let list = ["abc", "def"];
 const ExpenseList = ({expenseList, onDelete}: props) => {
+    let [selected, setSelected] = useState("all");
 
     return (
         <>
             <div className="mb-5">
-                <select id="category" className="form-control">
-                    <option value="All">All categories</option>
+                <select id="category" onChange={(event)=> {
+                    setSelected(event.target.value);
+                    console.log(event.target.value);
+                }} className="form-control">
+                    <option value="all">All categories</option>
                     <option value="Groceries">Groceries</option>
                     <option value="Utilities">Utilities</option>
-                    <option value="Mobile">Mobile & Gadgets</option>
+                    <option value="mobile">Mobile & Gadgets</option>
                     <option value="Electronics">Electronics</option>
                 </select>
             </div>
@@ -32,10 +38,10 @@ const ExpenseList = ({expenseList, onDelete}: props) => {
                 <tbody>
 
                 {expenseList.map((item, index) => (
-                    item.category === "Mobile & Gadgets" &&
+                    item.category === selected || selected==="all" &&
                     <tr key={index}>
                         <td>{item.desc}</td>
-                        <td>{item.price}</td>
+                        <td>{item.amount}</td>
                         <td>{item.category}</td>
                         <td>
                             <button className="btn btn-outline-danger"
